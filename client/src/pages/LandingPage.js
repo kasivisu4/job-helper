@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import * as PDFJS from "pdfjs-dist";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { updateResume } from "../features/resumeInfo";
 
-export default function LandingPage({ setPdfContent }) {
+export default function LandingPage() {
   PDFJS.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.mjs`;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function readFileAsync(file) {
     return new Promise((resolve, reject) => {
@@ -22,7 +27,8 @@ export default function LandingPage({ setPdfContent }) {
       pdf.getPage(1).then((page) => {
         page.getTextContent().then((textContent) => {
           let text = textContent.items.map((item) => item.str).join(" ");
-          setPdfContent(text);
+          dispatch(updateResume({ payload: text }));
+          navigate("/dashboard");
         });
       });
     });

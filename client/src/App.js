@@ -1,20 +1,21 @@
 import "./App.css";
-import Home from "./components/Home.js";
-import LandingPage from "./components/LandingPage.js";
-import { useState, useRef } from "react";
-import { SpeedInsights } from "@vercel/speed-insights/react";
+import DashBoard from "./pages/DashBoard.js";
+import LandingPage from "./pages/LandingPage.js";
+import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import RoleIdentifier from "./pages/RoleIdentifier.js";
+// import { SpeedInsights } from "@vercel/speed-insights/react";
 
 function App() {
-  const [pdfContent, setPdfContent] = useState("");
-
   return (
     <div>
-      {pdfContent ? (
-        <Home pdfContent={pdfContent} />
-      ) : (
-        <LandingPage setPdfContent={setPdfContent} />
-      )}
-      <SpeedInsights />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/dashboard" element={<DashBoard />}></Route>
+        <Route path="/roleidentifier" element={<RoleIdentifier />}></Route>
+      </Routes>
+
+      {/* <SpeedInsights /> */}
     </div>
   );
 }

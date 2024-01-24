@@ -3,13 +3,16 @@ import bodyParser from "body-parser";
 import { fileURLToPath } from "url";
 import path, { dirname } from "path";
 import logger from "morgan";
+import dotenv from "dotenv";
+
+dotenv.config();
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 import indexRouter from "./routes/index.js";
 
 const app = express();
-
 app.use(logger("dev"));
 app.use(express.static(path.join(__dirname, "frontend/build")));
 
